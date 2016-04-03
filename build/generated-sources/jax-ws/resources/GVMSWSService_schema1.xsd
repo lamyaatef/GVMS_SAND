@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://ws.gvms.sand/" xmlns:tns="http://ws.gvms.sand/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="getGifts" type="tns:getGifts"/>
+
+  <xs:element name="getGiftsResponse" type="tns:getGiftsResponse"/>
+
+  <xs:element name="issueGift" type="tns:issueGift"/>
+
+  <xs:element name="issueGiftResponse" type="tns:issueGiftResponse"/>
+
+  <xs:complexType name="getGifts">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string" minOccurs="0"/>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getGiftsResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="issueGift">
+    <xs:sequence>
+      <xs:element name="username" type="xs:string" minOccurs="0"/>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+      <xs:element name="giftId" type="xs:string" minOccurs="0"/>
+      <xs:element name="dialNumber" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="issueGiftResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+
