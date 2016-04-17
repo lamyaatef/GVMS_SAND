@@ -27,6 +27,8 @@ public class CSLogsDTO
    private String user_type_name ;
    private String user_id ;
    private String user_name ;
+   private String gift_money_value; 
+   
    
    public String getAccount_number()
    {
@@ -209,5 +211,19 @@ public class CSLogsDTO
    {
       return redemprion_date;
    }
+
+    /**
+     * @return the gift_money_value
+     */
+    public String getGift_money_value() {
+        return gift_money_value;
+    }
+
+    /**
+     * @param gift_money_value the gift_money_value to set
+     */
+    public void setGift_money_value(String gift_money_value) {
+        this.gift_money_value = gift_money_value;
+    }
    
 }

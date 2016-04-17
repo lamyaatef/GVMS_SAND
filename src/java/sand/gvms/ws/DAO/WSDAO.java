@@ -131,6 +131,13 @@ public class WSDAO {
                     cslog.setUser_name("Any");
                     cslog.setVoucher_number(randomNumber);
                     cslog.setCampaign_id(getCamId);
+                
+                    
+                    rs = st.executeQuery( "select gift_money_value from gvms_gift where gift_id ="+ gift_id);
+                    if (rs.next())
+                    cslog.setGift_money_value(rs.getString("gift_money_value")) ;
+                   
+                    
                     insertLog(conn, gift_id, getCamId, randomNumber, dial);
                     
                     insertSMS(conn, cslog , gift_id);
@@ -220,7 +227,9 @@ public class WSDAO {
             }
             smsText = smsText.replace("#1", cslogs.getVoucher_number());
                    
-           
+            smsText = smsText.replace("#2", cslogs.getGift_money_value());
+            
+            
              st.executeUpdate("insert into GVMS_SMS values(GVMS_CS_SMS_SEQ_ID.nextval,'Mobinil', '" + cslogs.getDail_number() + "', '" + smsText + "', sysdate )");
               st.close();
         return insertInSMSTable(cslogs.getDail_number(), smsText);
@@ -253,20 +262,43 @@ public class WSDAO {
     }
 
     public static String getGifts(String userName, String password) {
-        String sql = "select campaign_id,GVMS_GET_GIFTS(campaign_id) giftsArr from GVMS_SYSTEM_SERVER where SERV_USER_NAME='" + userName + "' and SERV_PASSWORD='" + password + "'";
         Connection conn = null;
-        String returnValue;
+        String returnValue=null;
+        String campId = "";
         Statement st = null;
-        ResultSet rs = null;
+        ResultSet rs = null;       
+// String sql = "select campaign_id,GVMS_GET_GIFTS(campaign_id) giftsArr from GVMS_SYSTEM_SERVER where SERV_USER_NAME='" + userName + "' and SERV_PASSWORD='" + password + "'";
+        String sql = "select campaign_id from gvms_system_server where serv_user_name='"+userName+"' and serv_password='"+password+"' ";
+        
         try {
             conn = DBConnection.getConnection();
             st = conn.createStatement();
             rs = st.executeQuery(sql);
-            if (rs.next()) {
+            
+            if(rs.next())
+                campId = rs.getString("campaign_id");
+            
+            sql="select gvms_campaign_gift.gift_id from gvms_campaign_gift, gvms_gift where campaign_id = '"+campId+"' and gvms_gift.gift_id = gvms_campaign_gift.gift_id  and gvms_gift.GIFT_STATUS_ID not in (2,3)";
+            rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                returnValue += rs.getString("gift_id")+",";
+            }
+            if (returnValue.endsWith(","))
+                returnValue = returnValue.substring(0, returnValue.lastIndexOf(","));
+           
+            System.out.println("returnValue "+returnValue);
+           /* if (rs.next()) {
                 returnValue = rs.getString("giftsArr").replaceAll("-", "|");
             } else {
                 returnValue = null;
-            }
+            }*/
+            
+            
+            
+            
+        System.out.println("ISSUE GIFT SQL "+sql);
+        
 
         } catch (Exception e) {
             returnValue = null;
@@ -280,7 +312,7 @@ public class WSDAO {
 
 
         }
-
+        
         return returnValue;
 
 

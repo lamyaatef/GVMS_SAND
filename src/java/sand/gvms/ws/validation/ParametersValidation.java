@@ -111,16 +111,20 @@ public class ParametersValidation {
     }
 
     public static boolean isGiftUnderCampaign(String giftsString, String giftId) {
+        System.out.println("gift String "+giftsString+" gift Id "+giftId);
         boolean isGiftUnderCampaignFlag = false;
-        String[] giftsArr = giftsString.split(",");
-        String comGiftId = "";
-        for (String giftStr : giftsArr) {
+        //String[] giftsArr = giftsString.split(",");
+       // String comGiftId = "";
+        /*for (String giftStr : giftsArr) {
             comGiftId = giftStr.substring(0, giftStr.lastIndexOf("|"));
+            System.out.println("comGiftId "+comGiftId+" gift id "+giftId);
             if (comGiftId.compareTo(giftId)==0) {
                 isGiftUnderCampaignFlag = true;
                 break;
             }
-        }
+        }*/
+        if (giftsString.contains(giftId))
+            isGiftUnderCampaignFlag=true;
         return isGiftUnderCampaignFlag;
     }
 

@@ -42,6 +42,7 @@ public class GVMSWS {
     @WebMethod(operationName = "getGifts")
     public String getGifts(@WebParam(name = "userName") String userName, @WebParam(name = "password") String password) {
         String returnVal = ParametersValidation.checkParametersInPassed(1, userName, password, "", "");
+        System.out.println("The get gift return "+returnVal);
         WSDAO.insertLogs("", "", userName, password, returnVal == null ? "" : returnVal, InterfaceKeys.DB_TYPE_GET_GIFTS,
                 returnVal != null && returnVal.compareTo("") != 0 ? InterfaceKeys.DB_STATUS_SUCCESS : InterfaceKeys.DB_STATUS_FAIL);
         return returnVal;
