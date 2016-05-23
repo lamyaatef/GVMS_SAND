@@ -18,10 +18,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 //import oracle.jdbc.driver.OracleTypes;
 import sand.gvms.ws.InterfaceKey.InterfaceKeys;
- 
-
-
-
 
 /**
  *
@@ -77,6 +73,8 @@ public class WSDAO {
 
     }
 
+    
+    
     public static String insertDialGenerate(String dial, String gift_id, String userName, String password) {
 
         int countOfGeneration = 1;
