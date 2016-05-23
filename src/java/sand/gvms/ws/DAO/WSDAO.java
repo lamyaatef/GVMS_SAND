@@ -15,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import oracle.jdbc.driver.OracleTypes;
+//import oracle.jdbc.driver.OracleTypes;
 import sand.gvms.ws.InterfaceKey.InterfaceKeys;
 
 /**
@@ -54,12 +54,14 @@ public class WSDAO {
 
         } catch (Exception e) {
             System.out.println("Exception is " + e.getMessage());
-
+            e.printStackTrace();
+            
 
             try {
                 conn.close();
                 st.close();
             } catch (SQLException e1) {
+                e1.printStackTrace();
                 // TODO Auto-generated catch block
             }
 
@@ -115,7 +117,8 @@ public class WSDAO {
                 if (rs.next()) {
                     randomNumber = rs.getString(1);
                 }
-                DBConnection.cleanResultSet(rs);
+                
+               // DBConnection.cleanResultSet(rs);
                 // System.out.println("randomNumber is   "+randomNumber);
                 System.out.println("insert voucher sql is   " + SQL);
                 ps.setString(1, randomNumber);
@@ -137,9 +140,11 @@ public class WSDAO {
                     if (rs.next())
                     cslog.setGift_money_value(rs.getString("gift_money_value")) ;
                    
+                    System.out.println("insert log");
                     
                     insertLog(conn, gift_id, getCamId, randomNumber, dial);
                     
+                    System.out.println("insert sms)");
                     insertSMS(conn, cslog , gift_id);
                     
 //               if (SMSStatus==-2)
@@ -155,12 +160,13 @@ public class WSDAO {
 
 
             } catch (SQLException e1) {
+                e1.printStackTrace();
                 // TODO Auto-generated catch block
             }
 
 
         } catch (Exception e) {
-
+            e.printStackTrace();
             System.out.println("Exception is " + e.getMessage());
             DBConnection.cleanResultSet(rs);
             try {
@@ -225,8 +231,7 @@ public class WSDAO {
             {
                 smsText = rs.getString ("sms_text_english");
             }
-            smsText = smsText.replace("#1", cslogs.getVoucher_number());
-                   
+            smsText = smsText.replace("#1", cslogs.getVoucher_number());                   
             smsText = smsText.replace("#2", cslogs.getGift_money_value());
             
             
