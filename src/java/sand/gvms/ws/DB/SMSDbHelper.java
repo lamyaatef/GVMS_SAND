@@ -76,7 +76,8 @@ public class SMSDbHelper extends Object
         	String szjdbcDriver="oracle.jdbc.driver.OracleDriver";
         	String szdbUserName="sdbx";
         	String szdbPassWord="sdbx";
-        	String szdbUrl="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=10.11.123.10)(PORT=1521)))(CONNECT_DATA=(SID=CRMDB)(SERVER=DEDICATED)))";
+        	//String szdbUrl="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=10.11.123.10)(PORT=1521)))(CONNECT_DATA=(SID=CRMDB)(SERVER=DEDICATED)))";
+                String szdbUrl="jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=10.11.123.40)(PORT=1521)))(CONNECT_DATA=(SID=Chnldb)(SERVER=DEDICATED)))";
         	
        	 System.out.println("step 1 SMScon is "+szdbUrl);
        	 System.out.println("step 2 SMScon is "+szdbUserName);
